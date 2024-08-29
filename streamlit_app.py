@@ -10,7 +10,7 @@ st.title('Knee Arthritis Classification')
 # Set Header 
 st.header('Please upload a picture')
 
-# Create two columns
+# Create two columns for file uploader and image display
 col1, col2 = st.columns(2)
 
 # Load Model 
@@ -27,19 +27,24 @@ with col2:  # Right column for displaying the uploaded image
         image = Image.open(uploaded_image).convert('RGB')
         st.image(image, caption='Uploaded Image', use_column_width=True)
 
-        class_name = ['1 Normal', '2 Mild', '3 Severe']
+# Full-width section for Prediction Results
+if uploaded_image is not None:
+    st.markdown("---")  # Add a horizontal line for separation
+    st.header("Prediction Results")
 
-        with st.expander("Show Prediction Results"):
-            if st.button('Predict'):
-                # Prediction class
-                probli = pred_class(model, image, class_name)
+    class_name = ['1 Normal', '2 Mild', '3 Severe']
 
-                st.write("## Prediction Result")
-                # Get the index of the maximum value in probli[0]
-                max_index = np.argmax(probli[0])
+    with st.expander("Show Prediction Results"):
+        if st.button('Predict'):
+            # Prediction class
+            probli = pred_class(model, image, class_name)
 
-                # Iterate over the class_name and probli lists
-                for i in range(len(class_name)):
-                    # Set the color to blue if it's the maximum value, otherwise use the default color
-                    color = "blue" if i == max_index else None
-                    st.write(f"## <span style='color:{color}'>{class_name[i]} : {probli[0][i]*100:.2f}%</span>", unsafe_allow_html=True)
+            st.write("## Prediction Result")
+            # Get the index of the maximum value in probli[0]
+            max_index = np.argmax(probli[0])
+
+            # Iterate over the class_name and probli lists
+            for i in range(len(class_name)):
+                # Set the color to blue if it's the maximum value, otherwise use the default color
+                color = "blue" if i == max_index else None
+                st.write(f"## <span style='color:{color}'>{class_name[i]} : {probli[0][i]*100:.2f}%</span>", unsafe_allow_html=True)
