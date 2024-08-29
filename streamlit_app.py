@@ -12,7 +12,7 @@ st.header('Please upload a picture')
 
 # Load Model 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-model = torch.load('ghostnet_checkpoint_fold1.pt', map_location=device)
+model = torch.load('Model_checkpoint\GhostNet\ghostnet_checkpoint_fold1.pt', map_location=device)
 model.half()
 
 # Display image & Prediction 
