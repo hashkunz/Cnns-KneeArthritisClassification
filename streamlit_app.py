@@ -10,31 +10,36 @@ st.title('Knee Arthritis Classification')
 # Set Header 
 st.header('Please upload a picture')
 
+# Create two columns
+col1, col2 = st.columns(2)
+
 # Load Model 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 model = torch.load('Model_checkpoint/GhostNet/ghostnet_checkpoint_fold1.pt', map_location=device)
 model.half()
 
 # Display image & Prediction 
-uploaded_image = st.file_uploader('Choose an image', type=['jpg', 'jpeg', 'png'])
+with col1:  # Left column for file uploader
+    uploaded_image = st.file_uploader('Choose an image', type=['jpg', 'jpeg', 'png'])
 
-if uploaded_image is not None:
-    image = Image.open(uploaded_image).convert('RGB')
-    st.image(image, caption='Uploaded Image', use_column_width=True)
-    
-    class_name = ['1 Normal', '2 Mild', '3 Severe']
+with col2:  # Right column for displaying the uploaded image
+    if uploaded_image is not None:
+        image = Image.open(uploaded_image).convert('RGB')
+        st.image(image, caption='Uploaded Image', use_column_width=True)
 
-    with st.expander("Show Prediction Results"):
-        if st.button('Predict'):
-            # Prediction class
-            probli = pred_class(model, image, class_name)
-            
-            st.write("## Prediction Result")
-            # Get the index of the maximum value in probli[0]
-            max_index = np.argmax(probli[0])
+        class_name = ['1 Normal', '2 Mild', '3 Severe']
 
-            # Iterate over the class_name and probli lists
-            for i in range(len(class_name)):
-                # Set the color to blue if it's the maximum value, otherwise use the default color
-                color = "blue" if i == max_index else None
-                st.write(f"## <span style='color:{color}'>{class_name[i]} : {probli[0][i]*100:.2f}%</span>", unsafe_allow_html=True)
+        with st.expander("Show Prediction Results"):
+            if st.button('Predict'):
+                # Prediction class
+                probli = pred_class(model, image, class_name)
+
+                st.write("## Prediction Result")
+                # Get the index of the maximum value in probli[0]
+                max_index = np.argmax(probli[0])
+
+                # Iterate over the class_name and probli lists
+                for i in range(len(class_name)):
+                    # Set the color to blue if it's the maximum value, otherwise use the default color
+                    color = "blue" if i == max_index else None
+                    st.write(f"## <span style='color:{color}'>{class_name[i]} : {probli[0][i]*100:.2f}%</span>", unsafe_allow_html=True)
