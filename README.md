@@ -3,7 +3,7 @@
    This project focuses on developing technology for detecting and assessing the severity of osteoarthritis through X-ray image analysis using Convolutional Neural Networks (CNNs). The model is meticulously trained to ensure high accuracy in diagnosis.
 
 ### ★ | Web Demo Flask
-Try the web demo here: [Knee Arthritis Classification Demo](https://flask-kneearthritisclassification.onrender.com)
+Try the web demo here: [Knee Arthritis Classification Demo](https://cnns-kneearthritisclassification.streamlit.app/)
 
 ### ★ | Example image
 ##### - Knee Arthritis: Normal  
