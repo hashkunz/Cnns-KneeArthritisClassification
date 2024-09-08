@@ -43,3 +43,5 @@ Try the web demo here: [Knee Arthritis Classification Demo](https://cnns-kneeart
    ```
    https://www.kaggle.com/datasets/hafiznouman786/annotated-dataset-for-knee-arthritis-detection?fbclid=IwZXh0bgNhZW0CMTEAAR1SHiedpoWvwQgLh6jW3W_Iuz-wlkMRk_bVEV3ejZREUBURf2uaVjK5cGA_aem_S3-lHjQYekmEtuhwJJvf5A
    ```
+
+### ---- you can use GhostNetV3_Augmentation_CNN.ipynb file for train new model. ----
